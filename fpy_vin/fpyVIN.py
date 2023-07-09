@@ -191,7 +191,7 @@ class VINMachine:
                 return [None, '']
             raw_data_accumulator += data
             if data is None or data == '':
-                return [self.VINR_NOTRESP, None]
+                return ["VINR_NOTRESP", None] #VINR_NOTRESP
             for c in data:
                 b = ord(c)
                 if b == 0xFE:
@@ -221,7 +221,7 @@ class VINMachine:
             rx_xor = ord(rx_data[-1])
             rx_data = rx_data[:-1]
             if rx_xor != xor(rx_data):
-                return [self.VINR_INVXORR, None]
+                return [self.codes_description.get("VINR_INVXORR"), None] #"VINR_INVXORR"
         elif self.mode == 'crc16':
             rx_crc = to_int(rx_data[-2:])
             rx_data = rx_data[:-2]

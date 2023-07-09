@@ -22,9 +22,10 @@ class Ui_Dialog(object):
         self.comboBox_2 = QtWidgets.QComboBox(parent=Dialog)
         self.comboBox_2.setObjectName("Devices")
         self.comboBox_2.setGeometry(QtCore.QRect(19, 8, 641, 23))
-        for i in range(0, len(port)): #Добавляем слоты для Devices
-            self.comboBox_2.addItem("")
-        Ui_Dialog.portSelectid = port[0]
+        if len(port) > 0:
+            for i in range(0, len(port)): #Добавляем слоты для Devices
+                self.comboBox_2.addItem("")
+            Ui_Dialog.portSelectid = port[0]
 
         self.pushButton = QtWidgets.QPushButton(parent=Dialog)
         self.pushButton.setGeometry(QtCore.QRect(666, 4, 121, 32))
@@ -109,9 +110,6 @@ class Ui_Dialog(object):
             Ui_Dialog.console_text += self.comboBox_2.currentText()+'\n'+'Частота: '+self.lineEdit_2.text()+'\n'+'Скорость передачи данных: '+self.comboBox.currentText()+'\n'+'\n'
         else:
             Ui_Dialog.console_text += 'Ошибка' '\n' + '\n'
-            self.pushButton.setEnabled(True)
-            self.pushButton.setStyleSheet("background-color: #1E90FF; color: white;border-radius:5px;margin-top:5px")
-            self.pushButton.setMaximumHeight(25)
         self.textEdit.setText(Ui_Dialog.console_text)
 
     def the_button_telemetria_clicked(self):
@@ -138,9 +136,9 @@ class Ui_Dialog(object):
         self.pushButton_2.clicked.connect(self.the_button_telemetria_clicked)
         self.pushButton_3.clicked.connect(self.the_button_save_was_clicked)
 
-
-        for i in range(0, len(port)):
-            self.comboBox_2.setItemText(i, _translate("Dialog", port[i]))
+        if len(port) > 0:
+            for i in range(0, len(port)):
+                self.comboBox_2.setItemText(i, _translate("Dialog", port[i]))
 
         self.pushButton_2.setText(_translate("Dialog", "Запросить телеметрию"))
         self.pushButton_3.setText(_translate("Dialog", "Сохранить"))
